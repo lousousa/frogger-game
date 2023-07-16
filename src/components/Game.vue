@@ -9,6 +9,8 @@
 
 <script lang="ts">
   import Player from '@/components/Player.vue'
+  import type { IPlayer }  from '@/types'
+
   import {
     ref,
     defineComponent,
@@ -58,7 +60,7 @@
         rootElement.style.height = `${ state.cellSize * 9 }px`
       }
 
-      const update = (player: any | null): void => {
+      const update = (player: IPlayer | null): void => {
         if (!player) return
 
         if (keys.up) player.moveUp()

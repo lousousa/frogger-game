@@ -1,4 +1,4 @@
-export type IPlayer = {
+export interface IPlayer {
   x: number,
   y: number,
   isPressed: boolean,

@@ -9,3 +9,8 @@ export interface IPlayer {
   moveLeft: () => void,
   setPressed: () => void
 }
+
+export type Coordinates = {
+  x: number,
+  y: number
+}

@@ -9,7 +9,10 @@
     />
 
     <PrimaryFoe
-      ref="primaryFoe"
+      v-for="(foe, idx) in foesList"
+      :key="`foe_${idx}`"
+      :spawn-position="{ x: foe.x, y: foe.y }"
+      :ref="setFoeRef"
     />
   </main>
 </template>
@@ -61,9 +64,7 @@
     rootElement.style.height = `${ state.cellSize * 9 }px`
   }
 
-  let foeFrameRate = 0
-
-  const update = (player: IPlayer | null, foe: any | null): void => {
+  const update = (player: IPlayer | null, foeRefs: any[] | null): void => {
     if (!player) return
 
     player.checkCollision()
@@ -73,19 +74,20 @@
     if (keys.down) player.moveDown()
     if (keys.left) player.moveLeft()
 
-    if (!foe) return
+    foeRefs?.forEach(foe => {
+      if (foe.frameCounter === 3) {
+        foe.frameCounter = 0
+        foe.component.move()
+      }
 
-    if (foeFrameRate === 3) {
-      foeFrameRate = 0
-      foe.move()
-    }
-
-    foeFrameRate++
+      foe.frameCounter++
+    })
   }
 
   const onPlayerCollision = () => {
     player.value.reset()
-    primaryFoe.value.reset()
+
+    foeRefs?.forEach(foe => foe.component.reset())
   }
 
   onMounted(() => {
@@ -94,9 +96,33 @@
     window.setInterval((): void => {
       update(
         player.value,
-        primaryFoe.value
+        foeRefs
       )
     }, 1000 / state.fps)
+  })
+
+  const foesList = [
+    { x: 64, y: 64 },
+    { x: 288, y: 64 },
+    { x: 512, y: 64 },
+    { x: 0, y: 128 },
+    { x: 192, y: 128 },
+    { x: 320, y: 128 },
+    { x: 416, y: 128 },
+    { x: 128, y: 192 },
+    { x: 384, y: 192 },
+    { x: 512, y: 192 }
+  ]
+
+  const foeRefs: any[] = []
+
+  const setFoeRef = (component: any) => {
+    foeRefs.push({ component, frameCounter: 0 })
+  }
+
+  defineExpose({
+    foesList,
+    setFoeRef
   })
 </script>
 

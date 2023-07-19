@@ -2,11 +2,14 @@
   <div
     ref="root"
     class="primary-foe js-foe"
+    :style="`--spawnPositionX: ${spawnPosition.x}px; --spawnPositionY: ${spawnPosition.y}px;`"
   />
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, onMounted } from 'vue'
+  import type { PropType } from 'vue'
+  import type { Coordinates } from '@/types'
 
   const root = ref()
 
@@ -15,13 +18,20 @@
     y: 0
   })
 
+  const props = defineProps({
+    spawnPosition: {
+      type: Object as PropType<Coordinates>,
+      required: true
+    }
+  })
+
   const move = () => {
     const rootElement = root.value
     if (!rootElement) return
 
-    const rightBoundary = 32 * 16 - 16
+    const rightBoundary: number = 32 * 16
 
-    if (state.x <= rightBoundary - 16) {
+    if (state.x <= rightBoundary) {
       state.x += 4
       rootElement.style.left = `${ state.x }px`
     } else {
@@ -30,11 +40,20 @@
   }
 
   const reset = () => {
-    state.x = 0
-    state.y = 0
-    root.value.style.left = 0
-    root.value.style.top = `128px`
+    const spawnPosition = ref(props.spawnPosition)
+
+    state.x = spawnPosition.value.x
+    state.y = spawnPosition.value.y
+    root.value.style.left = 'var(--spawnPositionX)'
+    root.value.style.top = 'var(--spawnPositionY)'
   }
+
+  onMounted(() => {
+    const spawnPosition = ref(props.spawnPosition)
+
+    state.x = spawnPosition.value.x
+    state.y = spawnPosition.value.y
+  })
 
   defineExpose({
     move,
@@ -49,8 +68,8 @@
     height: 32px;
     border-radius: 8px;
     position: absolute;
-    top: 128px;
-    left: 0;
+    top: var(--spawnPositionY);
+    left: var(--spawnPositionX);
     z-index: 1;
   }
 </style>

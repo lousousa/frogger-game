@@ -22,7 +22,7 @@
     const rightBoundary = 32 * 16 - 16
 
     if (state.x <= rightBoundary - 16) {
-      state.x += 32
+      state.x += 4
       rootElement.style.left = `${ state.x }px`
     } else {
       state.x = -64

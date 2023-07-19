@@ -75,7 +75,7 @@
 
     if (!foe) return
 
-    if (foeFrameRate === 12) {
+    if (foeFrameRate === 3) {
       foeFrameRate = 0
       foe.move()
     }
@@ -84,8 +84,6 @@
   }
 
   const onPlayerCollision = () => {
-    alert('* you were run over *')
-
     player.value.reset()
     primaryFoe.value.reset()
   }

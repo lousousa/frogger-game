@@ -22,13 +22,20 @@
   })
 
   const checkCollision = () => {
-    const el = document.elementFromPoint(state.x - 1, state.y +16)
-    if (!el) return
+    const castingPoints = [
+      { x: state.x - 1 + 8, y: state.y + 16 }, // left edge
+      { x: state.x + 1 + 8 + 32, y: state.y + 16 } // right edge
+    ]
 
-    if (!state.isColliding && el.classList.contains('js-foe')) {
-      state.isColliding = true
-      emit('collision')
-    }
+    castingPoints.forEach(point => {
+      const checkElement = document.elementFromPoint(point.x, point.y)
+      if (!checkElement) return
+
+      if (!state.isColliding && checkElement.classList.contains('js-foe')) {
+        state.isColliding = true
+        emit('collision')
+      }
+    })
   }
 
   const moveUp = () => {
@@ -89,7 +96,6 @@
   const reset = () => {
     state.x = root.value.style.left = 0
     state.y = root.value.style.top = 0
-    state.isPressed = false
     state.isColliding = false
   }
 
@@ -113,7 +119,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     width: 32px;
     height: 32px;
   }

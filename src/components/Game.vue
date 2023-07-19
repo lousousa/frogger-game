@@ -3,12 +3,16 @@
     class="game-component"
     ref="root"
   >
-    <Player ref="player"/>
+    <Player ref="player" />
+
+    <PrimaryFoe ref="primaryFoe" />
   </main>
 </template>
 
 <script lang="ts">
   import Player from '@/components/Player.vue'
+  import PrimaryFoe from '@/components/PrimaryFoe.vue'
+
   import type { IPlayer }  from '@/types'
 
   import {
@@ -20,11 +24,14 @@
 
   export default defineComponent({
     components: {
-      Player
+      Player,
+      PrimaryFoe
     },
     setup() {
       const root = ref()
       const player = ref()
+      const primaryFoe = ref()
+
       const keys = reactive({
         up: false,
         right: false,
@@ -60,24 +67,41 @@
         rootElement.style.height = `${ state.cellSize * 9 }px`
       }
 
-      const update = (player: IPlayer | null): void => {
+      let foeFrameRate = 0
+
+      const update = (player: IPlayer | null, foe: any | null): void => {
         if (!player) return
 
         if (keys.up) player.moveUp()
         if (keys.right) player.moveRight()
         if (keys.down) player.moveDown()
         if (keys.left) player.moveLeft()
+
+        if (!foe) return
+
+        if (foeFrameRate === 12) {
+          foeFrameRate = 0
+          foe.move()
+        }
+
+        foeFrameRate++
       }
 
       onMounted(() => {
         start(root.value)
 
-        window.setInterval((): void => { update(player.value) }, 1000 / state.fps)
+        window.setInterval((): void => {
+          update(
+            player.value,
+            primaryFoe.value
+          )
+        }, 1000 / state.fps)
       })
 
       return {
         root,
-        player
+        player,
+        primaryFoe
       }
     }
   })
@@ -88,5 +112,6 @@
     background-color: #222;
     position: relative;
     overflow: hidden;
+    border-radius: 4px;
   }
 </style>

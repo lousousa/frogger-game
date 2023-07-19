@@ -1,7 +1,7 @@
 <template>
   <div
     ref="root"
-    class="red-ball"
+    class="player"
   />
 </template>
 
@@ -15,6 +15,7 @@
   export default defineComponent({
     setup() {
       const root = ref()
+
       const state = reactive({
         x: 0,
         y: 0,
@@ -41,6 +42,7 @@
         if (!rootElement) return
 
         const rightBoundary = 32 * 16 - 32
+
         if (state.x <= rightBoundary - 32) {
           state.x += 32
           rootElement.style.left = `${ state.x }px`
@@ -90,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .red-ball {
+  .player {
     border-radius: 50%;
     background-color: red;
     position: absolute;

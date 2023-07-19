@@ -85,6 +85,9 @@
 
   const onPlayerCollision = () => {
     alert('* you were run over *')
+
+    player.value.reset()
+    primaryFoe.value.reset()
   }
 
   onMounted(() => {

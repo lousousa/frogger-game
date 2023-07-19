@@ -29,8 +29,16 @@
     }
   }
 
+  const reset = () => {
+    state.x = 0
+    state.y = 0
+    root.value.style.left = 0
+    root.value.style.top = `128px`
+  }
+
   defineExpose({
-    move
+    move,
+    reset
   })
 </script>
 

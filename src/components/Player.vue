@@ -86,6 +86,13 @@
     }
   }
 
+  const reset = () => {
+    state.x = root.value.style.left = 0
+    state.y = root.value.style.top = 0
+    state.isPressed = false
+    state.isColliding = false
+  }
+
   const setPressed = (flag: boolean) => state.isPressed = flag
 
   defineExpose({
@@ -94,6 +101,7 @@
     moveRight,
     moveDown,
     moveLeft,
+    reset,
     setPressed
   })
 </script>

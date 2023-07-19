@@ -1,45 +1,36 @@
 <template>
   <div
     ref="root"
-    class="primary-foe"
+    class="primary-foe js-foe"
   />
 </template>
 
-<script lang="ts">
-  import {
-    defineComponent,
-    reactive,
-    ref
-  } from 'vue'
+<script setup lang="ts">
+  import { ref, reactive } from 'vue'
 
-  export default defineComponent({
-    setup() {
-      const root = ref()
+  const root = ref()
 
-      const state = reactive({
-        x: 0,
-        y: 0
-      })
+  const state = reactive({
+    x: 0,
+    y: 0
+  })
 
-      const move = () => {
-        const rootElement = root.value
-        if (!rootElement) return
+  const move = () => {
+    const rootElement = root.value
+    if (!rootElement) return
 
-        const rightBoundary = 32 * 16 - 16
+    const rightBoundary = 32 * 16 - 16
 
-        if (state.x <= rightBoundary - 16) {
-          state.x += 32
-          rootElement.style.left = `${ state.x }px`
-        } else {
-          state.x = -64
-        }
-      }
-
-      return {
-        root,
-        move
-      }
+    if (state.x <= rightBoundary - 16) {
+      state.x += 32
+      rootElement.style.left = `${ state.x }px`
+    } else {
+      state.x = -64
     }
+  }
+
+  defineExpose({
+    move
   })
 </script>
 

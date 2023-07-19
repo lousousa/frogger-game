@@ -5,89 +5,96 @@
   />
 </template>
 
-<script lang="ts">
-  import {
-    defineComponent,
-    reactive,
-    ref
-  } from 'vue'
+<script setup lang="ts">
+  import { ref, reactive } from 'vue'
 
-  export default defineComponent({
-    setup() {
-      const root = ref()
+  const root = ref()
 
-      const state = reactive({
-        x: 0,
-        y: 0,
-        isPressed: false
-      })
+  const state = reactive({
+    x: 0,
+    y: 0,
+    isPressed: false,
+    isColliding: false
+  })
 
-      const moveUp = () => {
-        if (state.isPressed) return
+  const emit = defineEmits({
+    collision: () => true
+  })
 
-        const rootElement = root.value
-        if (!rootElement) return
+  const checkCollision = () => {
+    const el = document.elementFromPoint(state.x - 1, state.y +16)
+    if (!el) return
 
-        if (state.y >= 32) {
-          state.y -= 32
-          rootElement.style.top = `${ state.y }px`
-          setPressed(true)
-        }
-      }
-
-      const moveRight = () => {
-        if (state.isPressed) return
-
-        const rootElement = root.value
-        if (!rootElement) return
-
-        const rightBoundary = 32 * 16 - 32
-
-        if (state.x <= rightBoundary - 32) {
-          state.x += 32
-          rootElement.style.left = `${ state.x }px`
-          setPressed(true)
-        }
-      }
-
-      const moveDown = () => {
-        if (state.isPressed) return
-
-        const rootElement = root.value
-        if (!rootElement) return
-
-        const bottomBoundary = 32 * 9 - 32
-        if (state.y <= bottomBoundary - 32) {
-          state.y += 32
-          rootElement.style.top = `${ state.y }px`
-          setPressed(true)
-        }
-      }
-
-      const moveLeft = () => {
-        if (state.isPressed) return
-
-        const rootElement = root.value
-        if (!rootElement) return
-
-        if (state.x >= 32) {
-          state.x -= 32
-          rootElement.style.left = `${ state.x }px`
-          setPressed(true)
-        }
-      }
-
-      const setPressed = (flag: boolean) => state.isPressed = flag
-
-      return {
-        root,
-        moveUp,
-        moveRight,
-        moveDown,
-        moveLeft,
-        setPressed
-      }
+    if (!state.isColliding && el.classList.contains('js-foe')) {
+      state.isColliding = true
+      emit('collision')
     }
+  }
+
+  const moveUp = () => {
+    if (state.isPressed) return
+
+    const rootElement = root.value
+    if (!rootElement) return
+
+    if (state.y >= 32) {
+      state.y -= 32
+      rootElement.style.top = `${ state.y }px`
+      setPressed(true)
+    }
+  }
+
+  const moveRight = () => {
+    if (state.isPressed) return
+
+    const rootElement = root.value
+    if (!rootElement) return
+
+    const rightBoundary = 32 * 16 - 32
+
+    if (state.x <= rightBoundary - 32) {
+      state.x += 32
+      rootElement.style.left = `${ state.x }px`
+      setPressed(true)
+    }
+  }
+
+  const moveDown = () => {
+    if (state.isPressed) return
+
+    const rootElement = root.value
+    if (!rootElement) return
+
+    const bottomBoundary = 32 * 9 - 32
+    if (state.y <= bottomBoundary - 32) {
+      state.y += 32
+      rootElement.style.top = `${ state.y }px`
+      setPressed(true)
+    }
+  }
+
+  const moveLeft = () => {
+    if (state.isPressed) return
+
+    const rootElement = root.value
+    if (!rootElement) return
+
+    if (state.x >= 32) {
+      state.x -= 32
+      rootElement.style.left = `${ state.x }px`
+      setPressed(true)
+    }
+  }
+
+  const setPressed = (flag: boolean) => state.isPressed = flag
+
+  defineExpose({
+    checkCollision,
+    moveUp,
+    moveRight,
+    moveDown,
+    moveLeft,
+    setPressed
   })
 </script>
 

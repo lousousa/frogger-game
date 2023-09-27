@@ -83,9 +83,8 @@
   }
 
   const onPlayerCollision = () => {
-    player.value.reset()
-
-    foeRefs?.forEach(foe => foe.component.reset())
+    // player.value.reset()
+    // foeRefs?.forEach(foe => foe.component.reset())
   }
 
   onMounted(() => {

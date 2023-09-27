@@ -17,10 +17,6 @@
     isPressed: false
   })
 
-  const emit = defineEmits({
-    collision: () => true
-  })
-
   const move = (dir: Vector2) => {
     if (state.isPressed) return
 

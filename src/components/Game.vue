@@ -12,7 +12,13 @@
       :key="`foe_${idx}`"
       :spawn-position="{ x: foe.x, y: foe.y }"
       :ref="setFoeRef"
-      @player-collision="onPlayerCollision"
+      @player-collision="onFoeCollision"
+    />
+
+    <Checkpoint
+      ref="checkpoint"
+      :position-y="8"
+      @player-collision="onCheckpointCollision"
     />
   </main>
 </template>
@@ -20,6 +26,7 @@
 <script setup lang="ts">
   import Player from '@/components/Player.vue'
   import PrimaryFoe from '@/components/PrimaryFoe.vue'
+  import Checkpoint from '@/components/Checkpoint.vue'
 
   import { ref, reactive, onMounted } from 'vue'
 
@@ -27,6 +34,7 @@
 
   const root = ref()
   const player = ref()
+  const checkpoint = ref()
 
   const keys = reactive({
     up: false,
@@ -81,9 +89,11 @@
       foe.component.checkPlayerCollision(player.getPosition())
       foe.frameCounter++
     })
+
+    checkpoint.value.checkPlayerCollision(player.getPosition())
   }
 
-  const onPlayerCollision = () => {
+  const onFoeCollision = () => {
     state.isPaused = true
 
     window.setTimeout(() => {
@@ -91,6 +101,20 @@
       foeRefs?.forEach(foe => foe.component.reset())
       state.isPaused = false
     }, 1000)
+  }
+
+  const onCheckpointCollision = () => {
+    state.isPaused = true
+
+    window.setTimeout(() => {
+      const confirmation = confirm('You win! Play again?')
+
+      if (confirmation) {
+        player.value.reset()
+        foeRefs?.forEach(foe => foe.component.reset())
+        state.isPaused = false
+      }
+    }, 150)
   }
 
   onMounted(() => {

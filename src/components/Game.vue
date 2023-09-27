@@ -153,6 +153,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #222;
   }
   .game-component {
     background-color: #161b33;

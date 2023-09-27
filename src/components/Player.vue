@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
   import { ref, reactive } from 'vue'
+  import type { Vector2 } from '@/types'
 
   const root = ref()
 
@@ -38,59 +39,28 @@
     })
   }
 
-  const moveUp = () => {
+  const move = (dir: Vector2) => {
     if (state.isPressed) return
 
     const rootElement = root.value
     if (!rootElement) return
 
-    if (state.y >= 32) {
-      state.y -= 32
-      rootElement.style.top = `${ state.y }px`
-      setPressed(true)
-    }
-  }
-
-  const moveRight = () => {
-    if (state.isPressed) return
-
-    const rootElement = root.value
-    if (!rootElement) return
+    if (dir.x === -1 && state.x === 0) return
+    if (dir.y === -1 && state.y === 0) return
 
     const rightBoundary = 32 * 16 - 32
-
-    if (state.x <= rightBoundary - 32) {
-      state.x += 32
-      rootElement.style.left = `${ state.x }px`
-      setPressed(true)
-    }
-  }
-
-  const moveDown = () => {
-    if (state.isPressed) return
-
-    const rootElement = root.value
-    if (!rootElement) return
-
     const bottomBoundary = 32 * 9 - 32
-    if (state.y <= bottomBoundary - 32) {
-      state.y += 32
-      rootElement.style.top = `${ state.y }px`
-      setPressed(true)
-    }
-  }
 
-  const moveLeft = () => {
-    if (state.isPressed) return
+    if (dir.x === 1 && state.x === rightBoundary ) return
+    if (dir.y === 1 && state.y === bottomBoundary ) return
 
-    const rootElement = root.value
-    if (!rootElement) return
+    state.x = state.x + 32 * dir.x
+    state.y = state.y + 32 * dir.y
 
-    if (state.x >= 32) {
-      state.x -= 32
-      rootElement.style.left = `${ state.x }px`
-      setPressed(true)
-    }
+    rootElement.style.left = `${ state.x }px`
+    rootElement.style.top = `${ state.y }px`
+
+    setPressed(true)
   }
 
   const reset = () => {
@@ -103,10 +73,7 @@
 
   defineExpose({
     checkCollision,
-    moveUp,
-    moveRight,
-    moveDown,
-    moveLeft,
+    move,
     reset,
     setPressed
   })

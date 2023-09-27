@@ -27,7 +27,6 @@
 
   const root = ref()
   const player = ref()
-  const primaryFoe = ref()
 
   const keys = reactive({
     up: false,
@@ -69,10 +68,10 @@
 
     player.checkCollision()
 
-    if (keys.up) player.moveUp()
-    if (keys.right) player.moveRight()
-    if (keys.down) player.moveDown()
-    if (keys.left) player.moveLeft()
+    if (keys.up) player.move({x: 0, y: -1})
+    if (keys.right) player.move({x: 1, y: 0})
+    if (keys.down) player.move({x: 0, y: 1})
+    if (keys.left) player.move({x: -1, y: 0})
 
     foeRefs?.forEach(foe => {
       if (foe.frameCounter === 3) {

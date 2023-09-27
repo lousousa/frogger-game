@@ -3,14 +3,11 @@ export interface IPlayer {
   y: number,
   isPressed: boolean,
   checkCollision: () => void,
-  moveUp: () => void,
-  moveRight: () => void,
-  moveDown: () => void,
-  moveLeft: () => void,
+  move: (dir: Vector2) => void,
   setPressed: () => void
 }
 
-export type Coordinates = {
+export type Vector2 = {
   x: number,
   y: number
 }

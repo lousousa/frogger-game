@@ -9,7 +9,7 @@
 <script setup lang="ts">
   import { ref, reactive, onMounted } from 'vue'
   import type { PropType } from 'vue'
-  import type { Coordinates } from '@/types'
+  import type { Vector2 } from '@/types'
 
   const root = ref()
 
@@ -20,7 +20,7 @@
 
   const props = defineProps({
     spawnPosition: {
-      type: Object as PropType<Coordinates>,
+      type: Object as PropType<Vector2>,
       required: true
     }
   })

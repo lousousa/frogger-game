@@ -1,27 +1,31 @@
 <template>
-  <main
-    class="game-component"
-    ref="root"
+  <div
+    class="page-wrapper"
   >
-    <Player
-      ref="player"
-    />
+    <main
+      class="game-component"
+      ref="root"
+    >
+      <Player
+        ref="player"
+      />
 
-    <PrimaryFoe
-      v-for="(foe, idx) in foeList"
-      :key="`foe_${idx}`"
-      :spawn-position="{ x: foe.x, y: foe.y }"
-      :direction="foe.dir"
-      :ref="setFoeRef"
-      @player-collision="onFoeCollision"
-    />
+      <PrimaryFoe
+        v-for="(foe, idx) in foeList"
+        :key="`foe_${idx}`"
+        :spawn-position="{ x: foe.x, y: foe.y }"
+        :direction="foe.dir"
+        :ref="setFoeRef"
+        @player-collision="onFoeCollision"
+      />
 
-    <Checkpoint
-      ref="checkpoint"
-      :position-y="24"
-      @player-collision="onCheckpointCollision"
-    />
-  </main>
+      <Checkpoint
+        ref="checkpoint"
+        :position-y="24"
+        @player-collision="onCheckpointCollision"
+      />
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -102,14 +106,14 @@
       player.value.reset()
       foeRefs?.forEach(foe => foe.component.reset())
       state.isPaused = false
-    }, 1000)
+    }, 750)
   }
 
   const onCheckpointCollision = () => {
     state.isPaused = true
 
     window.setTimeout(() => {
-      const confirmation = confirm('You win! Play again?')
+      const confirmation = confirm('You won! Play it again?')
 
       if (confirmation) {
         player.value.reset()
@@ -143,6 +147,13 @@
 </script>
 
 <style lang="scss" scoped>
+  .page-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .game-component {
     background-color: #161b33;
     position: relative;

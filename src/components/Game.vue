@@ -37,7 +37,8 @@
 
   const state = reactive({
     fps: 60,
-    cellSize: 32
+    cellSize: 32,
+    isPaused: false
   })
 
   document.onkeydown = function(e) {
@@ -64,7 +65,7 @@
   }
 
   const update = (player: IPlayer | null, foeRefs: any[] | null): void => {
-    if (!player) return
+    if (!player || state.isPaused) return
 
     if (keys.up) player.move({x: 0, y: -1})
     if (keys.right) player.move({x: 1, y: 0})
@@ -83,8 +84,13 @@
   }
 
   const onPlayerCollision = () => {
-    // player.value.reset()
-    // foeRefs?.forEach(foe => foe.component.reset())
+    state.isPaused = true
+
+    window.setTimeout(() => {
+      player.value.reset()
+      foeRefs?.forEach(foe => foe.component.reset())
+      state.isPaused = false
+    }, 1000)
   }
 
   onMounted(() => {

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="root"
-    class="primary-foe js-foe"
+    class="primary-foe"
     :style="`--spawnPositionX: ${spawnPosition.x}px; --spawnPositionY: ${spawnPosition.y}px;`"
   />
 </template>
@@ -25,6 +25,10 @@
     }
   })
 
+  const emit = defineEmits({
+    'player-collision': () => true
+  })
+
   const move = () => {
     const rootElement = root.value
     if (!rootElement) return
@@ -36,6 +40,15 @@
       rootElement.style.left = `${ state.x }px`
     } else {
       state.x = -64
+    }
+  }
+
+  const checkPlayerCollision = (playerPosition: any) => {
+    const distanceX = state.x - playerPosition.x
+    const distanceY = state.y - playerPosition.y
+
+    if (distanceY === 0 && distanceX <= 32 && distanceX >= -64) {
+      emit('player-collision')
     }
   }
 
@@ -57,6 +70,7 @@
 
   defineExpose({
     move,
+    checkPlayerCollision,
     reset
   })
 </script>

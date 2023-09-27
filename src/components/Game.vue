@@ -5,7 +5,6 @@
   >
     <Player
       ref="player"
-      @collision="onPlayerCollision"
     />
 
     <PrimaryFoe
@@ -13,6 +12,7 @@
       :key="`foe_${idx}`"
       :spawn-position="{ x: foe.x, y: foe.y }"
       :ref="setFoeRef"
+      @player-collision="onPlayerCollision"
     />
   </main>
 </template>
@@ -66,19 +66,18 @@
   const update = (player: IPlayer | null, foeRefs: any[] | null): void => {
     if (!player) return
 
-    player.checkCollision()
-
     if (keys.up) player.move({x: 0, y: -1})
     if (keys.right) player.move({x: 1, y: 0})
     if (keys.down) player.move({x: 0, y: 1})
     if (keys.left) player.move({x: -1, y: 0})
 
     foeRefs?.forEach(foe => {
-      if (foe.frameCounter === 3) {
+      if (foe.frameCounter === 6) {
         foe.frameCounter = 0
         foe.component.move()
       }
 
+      foe.component.checkPlayerCollision(player.getPosition())
       foe.frameCounter++
     })
   }

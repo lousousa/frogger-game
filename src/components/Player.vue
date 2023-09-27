@@ -14,30 +14,12 @@
   const state = reactive({
     x: 0,
     y: 0,
-    isPressed: false,
-    isColliding: false
+    isPressed: false
   })
 
   const emit = defineEmits({
     collision: () => true
   })
-
-  const checkCollision = () => {
-    const castingPoints = [
-      { x: state.x - 1 + 8, y: state.y + 16 }, // left edge
-      { x: state.x + 1 + 8 + 32, y: state.y + 16 } // right edge
-    ]
-
-    castingPoints.forEach(point => {
-      const checkElement = document.elementFromPoint(point.x, point.y)
-      if (!checkElement) return
-
-      if (!state.isColliding && checkElement.classList.contains('js-foe')) {
-        state.isColliding = true
-        emit('collision')
-      }
-    })
-  }
 
   const move = (dir: Vector2) => {
     if (state.isPressed) return
@@ -57,8 +39,8 @@
     state.x = state.x + 32 * dir.x
     state.y = state.y + 32 * dir.y
 
-    rootElement.style.left = `${ state.x }px`
-    rootElement.style.top = `${ state.y }px`
+    rootElement.style.left = `${state.x}px`
+    rootElement.style.top = `${state.y}px`
 
     setPressed(true)
   }
@@ -66,16 +48,17 @@
   const reset = () => {
     state.x = root.value.style.left = 0
     state.y = root.value.style.top = 0
-    state.isColliding = false
   }
 
   const setPressed = (flag: boolean) => state.isPressed = flag
 
+  const getPosition = () => { return { x: state.x, y: state.y } }
+
   defineExpose({
-    checkCollision,
     move,
     reset,
-    setPressed
+    setPressed,
+    getPosition
   })
 </script>
 

@@ -8,7 +8,7 @@
     />
 
     <PrimaryFoe
-      v-for="(foe, idx) in foesList"
+      v-for="(foe, idx) in foeList"
       :key="`foe_${idx}`"
       :spawn-position="{ x: foe.x, y: foe.y }"
       :ref="setFoeRef"
@@ -17,7 +17,7 @@
 
     <Checkpoint
       ref="checkpoint"
-      :position-y="8"
+      :position-y="24"
       @player-collision="onCheckpointCollision"
     />
   </main>
@@ -29,8 +29,9 @@
   import Checkpoint from '@/components/Checkpoint.vue'
 
   import { ref, reactive, onMounted } from 'vue'
+  import { foeList } from '@/foe-list'
 
-  import type { IPlayer }  from '@/types'
+  import type { IPlayer } from '@/types'
 
   const root = ref()
   const player = ref()
@@ -69,7 +70,7 @@
     if (!rootElement) return
 
     rootElement.style.width = `${ state.cellSize * 16 }px`
-    rootElement.style.height = `${ state.cellSize * 9 }px`
+    rootElement.style.height = `${ state.cellSize * 25 }px`
   }
 
   const update = (player: IPlayer | null, foeRefs: any[] | null): void => {
@@ -128,19 +129,6 @@
     }, 1000 / state.fps)
   })
 
-  const foesList = [
-    { x: 64, y: 64 },
-    { x: 288, y: 64 },
-    { x: 512, y: 64 },
-    { x: 0, y: 128 },
-    { x: 192, y: 128 },
-    { x: 320, y: 128 },
-    { x: 416, y: 128 },
-    { x: 128, y: 192 },
-    { x: 384, y: 192 },
-    { x: 512, y: 192 }
-  ]
-
   const foeRefs: any[] = []
 
   const setFoeRef = (component: any) => {
@@ -148,7 +136,7 @@
   }
 
   defineExpose({
-    foesList,
+    foeList,
     setFoeRef
   })
 </script>
@@ -160,4 +148,4 @@
     overflow: hidden;
     border-radius: 4px;
   }
-</style>
+</style>@/foe-list

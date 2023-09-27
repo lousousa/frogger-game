@@ -155,6 +155,7 @@
     align-items: center;
     background-color: #222;
   }
+
   .game-component {
     background-color: #161b33;
     position: relative;

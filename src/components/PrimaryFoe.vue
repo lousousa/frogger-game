@@ -77,10 +77,10 @@
 
 <style lang="scss" scoped>
   .primary-foe {
-    background-color: yellowgreen;
+    background-color: #474973;
     width: 64px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: 4px;
     position: absolute;
     top: var(--spawnPositionY);
     left: var(--spawnPositionX);

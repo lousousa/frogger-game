@@ -60,8 +60,8 @@
 
 <style lang="scss" scoped>
   .player {
-    border-radius: 50%;
-    background-color: red;
+    border-radius: 8px;
+    background-color: #a69cac;
     position: absolute;
     top: 0;
     left: 0;

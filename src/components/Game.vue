@@ -143,7 +143,7 @@
 
 <style lang="scss" scoped>
   .game-component {
-    background-color: #222;
+    background-color: #161b33;
     position: relative;
     overflow: hidden;
     border-radius: 4px;

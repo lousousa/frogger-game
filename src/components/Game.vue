@@ -11,6 +11,7 @@
       v-for="(foe, idx) in foeList"
       :key="`foe_${idx}`"
       :spawn-position="{ x: foe.x, y: foe.y }"
+      :direction="foe.dir"
       :ref="setFoeRef"
       @player-collision="onFoeCollision"
     />
@@ -82,7 +83,7 @@
     if (keys.left) player.move({x: -1, y: 0})
 
     foeRefs?.forEach(foe => {
-      if (foe.frameCounter === 6) {
+      if (foe.frameCounter === 3) {
         foe.frameCounter = 0
         foe.component.move()
       }

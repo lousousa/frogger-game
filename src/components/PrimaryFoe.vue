@@ -22,6 +22,10 @@
     spawnPosition: {
       type: Object as PropType<Vector2>,
       required: true
+    },
+    direction: {
+      type: String,
+      required: true
     }
   })
 
@@ -35,11 +39,20 @@
 
     const rightBoundary: number = 32 * 16
 
-    if (state.x <= rightBoundary) {
-      state.x += 4
-      rootElement.style.left = `${ state.x }px`
+    if (props.direction === 'right') {
+      if (state.x <= rightBoundary) {
+        state.x += 4
+        rootElement.style.left = `${ state.x }px`
+      } else {
+        state.x = -64
+      }
     } else {
-      state.x = -64
+      if (state.x >= -64) {
+        state.x -= 4
+        rootElement.style.left = `${ state.x }px`
+      } else {
+        state.x = 32 * 16 + 64
+      }
     }
   }
 

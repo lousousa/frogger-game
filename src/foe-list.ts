@@ -34,7 +34,7 @@ export const foeList = [
   { x: 224, y: 640, dir: 'left' },
   { x: 384, y: 640, dir: 'left' },
 
-  { x: 512, y: 704, dir: 'right' },
+  { x: 32, y: 704, dir: 'right' },
   { x: 192, y: 704, dir: 'right' },
   { x: 288, y: 704, dir: 'right' },
   { x: 416, y: 704, dir: 'right' }

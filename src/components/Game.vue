@@ -42,7 +42,11 @@
   const player = ref()
   const checkpoint = ref()
 
-  const keys = reactive({
+  type KeysType = {
+    [key: string]: boolean
+  }
+
+  const keys:KeysType = reactive({
     up: false,
     right: false,
     down: false,
@@ -117,8 +121,12 @@
       const confirmation = confirm('You\'ve won! Play it again?')
 
       if (confirmation) {
+        const checkingKeys = ['up', 'right', 'down', 'left']
+        checkingKeys.forEach(key => { keys[key] = false })
+
         player.value.reset()
         foeRefs?.forEach(foe => foe.component.reset())
+
         state.isPaused = false
       }
     }, 150)
@@ -154,11 +162,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #161616;
+    background-color: #000;
   }
 
   .game-component {
-    background-color: #161b33;
+    background: linear-gradient(#1d2d44 33.33%, #333533 33.33%, #333533 66.66%, #1d2d44 66.66%);
     position: relative;
     overflow: hidden;
     border-radius: 4px;

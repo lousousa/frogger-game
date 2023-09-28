@@ -87,7 +87,7 @@
     if (keys.left) player.move({x: -1, y: 0})
 
     foeRefs?.forEach(foe => {
-      if (foe.frameCounter === 3) {
+      if (foe.frameCounter === 2) {
         foe.frameCounter = 0
         foe.component.move()
       }
@@ -114,7 +114,7 @@
     state.isPaused = true
 
     window.setTimeout(() => {
-      const confirmation = confirm('You won! Play it again?')
+      const confirmation = confirm('You\'ve won! Play it again?')
 
       if (confirmation) {
         player.value.reset()
@@ -154,7 +154,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #222;
+    background-color: #161616;
   }
 
   .game-component {

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="root"
-    class="player"
+    :class="['player', {'-is-died': state.isDied}]"
   />
 </template>
 
@@ -14,7 +14,8 @@
   const state = reactive({
     x: 0,
     y: 0,
-    isPressed: false
+    isPressed: false,
+    isDied: false
   })
 
   const move = (dir: Vector2) => {
@@ -44,9 +45,12 @@
   const reset = () => {
     state.x = root.value.style.left = 0
     state.y = root.value.style.top = 0
+    state.isDied = false
   }
 
   const setPressed = (flag: boolean) => state.isPressed = flag
+
+  const setDied = (flag: boolean) => state.isDied = flag
 
   const getPosition = () => { return { x: state.x, y: state.y } }
 
@@ -54,6 +58,7 @@
     move,
     reset,
     setPressed,
+    setDied,
     getPosition
   })
 </script>
@@ -68,5 +73,9 @@
     z-index: 2;
     width: 32px;
     height: 32px;
+
+    &.-is-died {
+      background-color: #e63946;
+    }
   }
 </style>

@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+  import type { Vector2 } from '@/types';
+
   const props = defineProps({
     positionY: {
       type: Number,
@@ -17,7 +19,7 @@
     'player-collision': () => true
   })
 
-  const checkPlayerCollision = (playerPosition: any) => {
+  const checkPlayerCollision = (playerPosition: Vector2) => {
     const distanceY = (props.positionY * 32) - playerPosition.y
 
     if (distanceY === 0) {

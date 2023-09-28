@@ -33,10 +33,10 @@
   import PrimaryFoe from '@/components/PrimaryFoe.vue'
   import Checkpoint from '@/components/Checkpoint.vue'
 
-  import { ref, reactive, onMounted } from 'vue'
+  import { ref, reactive, onMounted, type VNodeRef } from 'vue'
   import { foeList } from '@/foe-list'
 
-  import type { IPlayer } from '@/types'
+  import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
   const root = ref()
   const player = ref()
@@ -78,7 +78,7 @@
     rootElement.style.height = `${ state.cellSize * 25 }px`
   }
 
-  const update = (player: IPlayer | null, foeRefs: any[] | null): void => {
+  const update = (player: IPlayer | null, foeRefs: IFoeRef[] | null): void => {
     if (!player || state.isPaused) return
 
     if (keys.up) player.move({x: 0, y: -1})
@@ -134,9 +134,9 @@
     }, 1000 / state.fps)
   })
 
-  const foeRefs: any[] = []
+  const foeRefs: IFoeRef[] = []
 
-  const setFoeRef = (component: any) => {
+  const setFoeRef: any = (component: IFoe) => {
     foeRefs.push({ component, frameCounter: 0 })
   }
 

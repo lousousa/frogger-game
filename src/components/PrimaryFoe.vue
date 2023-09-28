@@ -56,7 +56,7 @@
     }
   }
 
-  const checkPlayerCollision = (playerPosition: any) => {
+  const checkPlayerCollision = (playerPosition: Vector2) => {
     const distanceX = state.x - playerPosition.x
     const distanceY = state.y - playerPosition.y
 

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="root"
-    :class="['player', {'-is-died': state.isDied}]"
+    :class="['player', {'-is-dead': state.isDead}]"
   />
 </template>
 
@@ -15,7 +15,7 @@
     x: 0,
     y: 0,
     isPressed: false,
-    isDied: false
+    isDead: false
   })
 
   const move = (dir: Vector2) => {
@@ -45,12 +45,12 @@
   const reset = () => {
     state.x = root.value.style.left = 0
     state.y = root.value.style.top = 0
-    state.isDied = false
+    state.isDead = false
   }
 
   const setPressed = (flag: boolean) => state.isPressed = flag
 
-  const setDied = (flag: boolean) => state.isDied = flag
+  const setDead = (flag: boolean) => state.isDead = flag
 
   const getPosition = () => { return { x: state.x, y: state.y } }
 
@@ -58,7 +58,7 @@
     move,
     reset,
     setPressed,
-    setDied,
+    setDead,
     getPosition
   })
 </script>
@@ -74,7 +74,7 @@
     width: 32px;
     height: 32px;
 
-    &.-is-died {
+    &.-is-dead {
       background-color: #e63946;
     }
   }

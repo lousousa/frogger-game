@@ -4,7 +4,7 @@ export interface IPlayer {
   isPressed: boolean,
   move: (dir: Vector2) => void,
   setPressed: () => void,
-  setDied: () => void,
+  setDead: () => void,
   getPosition: () => Vector2,
   reset: () => void
 }

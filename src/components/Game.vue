@@ -101,7 +101,7 @@
 
   const onFoeCollision = () => {
     state.isPaused = true
-    player.value.setDied(true)
+    player.value.setDead(true)
 
     window.setTimeout(() => {
       player.value.reset()

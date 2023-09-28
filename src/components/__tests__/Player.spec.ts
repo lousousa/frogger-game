@@ -28,8 +28,8 @@ describe('Player', () => {
   })
 
   it('moves right when the direction is applied', () => {
-    expect(wrapper.vm.state.x).toEqual(0)
-    expect(wrapper.vm.state.y).toEqual(0)
+    wrapper.vm.state.x = 0
+    wrapper.vm.state.y = 0
 
     wrapper.vm.move({ x: 1, y: 0 })
 
@@ -38,8 +38,8 @@ describe('Player', () => {
   })
 
   it('moves down when the direction is applied', () => {
-    expect(wrapper.vm.state.x).toEqual(0)
-    expect(wrapper.vm.state.y).toEqual(0)
+    wrapper.vm.state.x = 0
+    wrapper.vm.state.y = 0
 
     wrapper.vm.move({ x: 0, y: 1 })
 

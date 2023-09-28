@@ -30,8 +30,8 @@
     const rightBoundary = 32 * 16 - 32
     const bottomBoundary = 32 * 25 - 32
 
-    if (dir.x === 1 && state.x === rightBoundary ) return
-    if (dir.y === 1 && state.y === bottomBoundary ) return
+    if (dir.x === 1 && state.x === rightBoundary) return
+    if (dir.y === 1 && state.y === bottomBoundary) return
 
     state.x = state.x + 32 * dir.x
     state.y = state.y + 32 * dir.y

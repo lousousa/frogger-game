@@ -34,7 +34,7 @@
 
 <style lang="scss" scoped>
   .checkpoint {
-    background-color: #a8dadc;
+    background-color: var(--color-checkpoint);
     width: 100%;
     height: 32px;
     position: absolute;

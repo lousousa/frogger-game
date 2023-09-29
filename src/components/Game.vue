@@ -161,11 +161,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000;
+    background-color: var(--color-page);
   }
 
   .game-component {
-    background: linear-gradient(#1d2d44 33.33%, #333533 33.33%, #333533 66.66%, #1d2d44 66.66%);
+    background: linear-gradient(
+      var(--color-background-1) 33.33%,
+      var(--color-background-2) 33.33%,
+      var(--color-background-2) 66.66%,
+      var(--color-background-3) 66.66%);
     position: relative;
     overflow: hidden;
     border-radius: 4px;

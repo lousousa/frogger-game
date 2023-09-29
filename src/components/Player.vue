@@ -69,7 +69,7 @@
 <style lang="scss" scoped>
   .player {
     border-radius: 8px;
-    background-color: #ccd5ae;
+    background-color: var(--color-player);
     position: absolute;
     top: calc(24 * 32px);
     left: calc(8 * 32px);
@@ -78,7 +78,7 @@
     height: 32px;
 
     &.-is-dead {
-      background-color: #e63946;
+      background-color: var(--color-player-dead);
     }
   }
 </style>

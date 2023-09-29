@@ -1,12 +1,12 @@
 @import './base.css';
 
 :root {
-  --color-page: #3a506b;
-  --color-background-1: #22223b;
-  --color-background-2: #0b132b;
-  --color-background-3: #001d3d;
+  --color-page: #1e1e24;
+  --color-background-1: #403d39;
+  --color-background-2: #252422;
+  --color-background-3: #403d39;
   --color-player: #a7c957;
-  --color-player-dead: #ef233c;
-  --color-foe-1: #4a4e69;
-  --color-checkpoint: #c8d5b9;
+  --color-player-dead: #f94144;
+  --color-foe-1: #8a817c;
+  --color-checkpoint: #52b788;
 }

@@ -12,8 +12,8 @@
   const root = ref()
 
   const state = reactive({
-    x: 7 * 32,
-    y: 0,
+    x: 8 * 32,
+    y: 24 * 32,
     isPressed: false,
     isDead: false
   })
@@ -43,9 +43,10 @@
   }
 
   const reset = () => {
-    state.x = 7 * 32
-    root.value.style.left = `${7 * 32}px`
-    state.y = root.value.style.top = 0
+    state.x = 8 * 32
+    state.y = 24 * 32
+    root.value.style.left = `${8 * 32}px`
+    root.value.style.top = `${24 * 32}px`
     state.isPressed = false
     state.isDead = false
   }
@@ -68,16 +69,16 @@
 <style lang="scss" scoped>
   .player {
     border-radius: 8px;
-    background-color: #ccd5ae;
+    background-color: var(--color-player);
     position: absolute;
-    top: 0;
-    left: calc(7 * 32px);
+    top: calc(24 * 32px);
+    left: calc(8 * 32px);
     z-index: 2;
     width: 32px;
     height: 32px;
 
     &.-is-dead {
-      background-color: #e63946;
+      background-color: var(--color-player-dead);
     }
   }
 </style>

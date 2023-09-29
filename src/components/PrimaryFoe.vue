@@ -90,8 +90,7 @@
 
 <style lang="scss" scoped>
   .primary-foe {
-    background-color: #cfdbd5;
-    opacity: .25;
+    background-color: var(--color-foe-1);
     width: 64px;
     height: 32px;
     border-radius: 4px;

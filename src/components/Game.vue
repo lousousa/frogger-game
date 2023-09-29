@@ -21,7 +21,6 @@
 
       <Checkpoint
         ref="checkpoint"
-        :position-y="24"
         @player-collision="onCheckpointCollision"
       />
     </main>
@@ -91,7 +90,7 @@
     if (keys.left) player.move({x: -1, y: 0})
 
     foeRefs?.forEach(foe => {
-      if (foe.frameCounter === 2) {
+      if (foe.frameCounter === 1) {
         foe.frameCounter = 0
         foe.component.move()
       }

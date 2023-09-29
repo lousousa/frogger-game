@@ -11,7 +11,7 @@
   const props = defineProps({
     positionY: {
       type: Number,
-      required: true
+      default: 0
     }
   })
 

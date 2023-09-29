@@ -2,7 +2,7 @@
 
 A version of the game "Frogger" developed in Vue 3.
 
-![Video](https://github.com/lousousa/frogger-game/assets/2921281/c78def63-d5a2-4778-a4ec-65255a6eebb7)
+![frogger](https://github.com/lousousa/frogger-game/assets/2921281/edd9f185-2a96-4a21-a335-8c97200d8d6a)
 
 # How to Play
 

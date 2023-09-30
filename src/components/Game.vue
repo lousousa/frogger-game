@@ -5,6 +5,7 @@
     <main
       class="game-component"
       ref="root"
+      :style="`--cell-size: ${state.cellSize}px`"
     >
       <Player
         ref="player"
@@ -54,6 +55,7 @@
   })
 
   const state = reactive({
+    cellSize: CELL_SIZE,
     fps: 60,
     isPaused: false
   })

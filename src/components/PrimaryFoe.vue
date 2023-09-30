@@ -10,6 +10,7 @@
   import { ref, reactive, onMounted } from 'vue'
   import type { PropType } from 'vue'
   import type { Vector2 } from '@/types'
+  import { CELL_SIZE } from '@/constants'
 
   const root = ref()
 
@@ -37,21 +38,21 @@
     const rootElement = root.value
     if (!rootElement) return
 
-    const rightBoundary: number = 32 * 16
+    const rightBoundary: number = CELL_SIZE * 16
 
     if (props.direction === 'right') {
       if (state.x <= rightBoundary) {
-        state.x += 4
+        state.x += CELL_SIZE / 8
         rootElement.style.left = `${ state.x }px`
       } else {
-        state.x = -64
+        state.x = -CELL_SIZE * 2
       }
     } else {
-      if (state.x >= -64) {
-        state.x -= 4
+      if (state.x >= -CELL_SIZE * 2) {
+        state.x -= CELL_SIZE / 8
         rootElement.style.left = `${ state.x }px`
       } else {
-        state.x = 32 * 16 + 64
+        state.x = CELL_SIZE * 16 + CELL_SIZE * 2
       }
     }
   }
@@ -60,7 +61,7 @@
     const distanceX = state.x - playerPosition.x
     const distanceY = state.y - playerPosition.y
 
-    if (distanceY === 0 && distanceX <= 32 && distanceX >= -64) {
+    if (distanceY === 0 && distanceX <= CELL_SIZE && distanceX >= -CELL_SIZE * 2) {
       emit('player-collision')
     }
   }
@@ -91,8 +92,8 @@
 <style lang="scss" scoped>
   .primary-foe {
     background-color: var(--color-foe-1);
-    width: 64px;
-    height: 32px;
+    width: calc(2 * var(--cell-size));
+    height: var(--cell-size);
     border-radius: 4px;
     position: absolute;
     top: var(--spawnPositionY);

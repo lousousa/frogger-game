@@ -34,6 +34,7 @@
 
   import { ref, reactive, onMounted, type VNodeRef } from 'vue'
   import { foeList } from '@/foe-list'
+  import { CELL_SIZE } from '@/constants'
 
   import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
@@ -54,7 +55,6 @@
 
   const state = reactive({
     fps: 60,
-    cellSize: 32,
     isPaused: false
   })
 
@@ -77,8 +77,8 @@
   const start = (rootElement: HTMLElement | null):void => {
     if (!rootElement) return
 
-    rootElement.style.width = `${ state.cellSize * 16 }px`
-    rootElement.style.height = `${ state.cellSize * 25 }px`
+    rootElement.style.width = `${ CELL_SIZE * 16 }px`
+    rootElement.style.height = `${ CELL_SIZE * 25 }px`
   }
 
   const update = (player: IPlayer | null, foeRefs: IFoeRef[] | null): void => {

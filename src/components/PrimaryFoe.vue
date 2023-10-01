@@ -10,7 +10,7 @@
   import { ref, reactive, onMounted } from 'vue'
   import type { PropType } from 'vue'
   import type { Vector2 } from '@/types'
-  import { CELL_SIZE } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE } from '@/constants'
 
   const root = ref()
 
@@ -38,7 +38,7 @@
     const rootElement = root.value
     if (!rootElement) return
 
-    const rightBoundary: number = CELL_SIZE * 16
+    const rightBoundary: number = CELL_SIZE * GAME_SIZE.width
 
     if (props.direction === 'right') {
       if (state.x <= rightBoundary) {
@@ -52,7 +52,7 @@
         state.x -= CELL_SIZE / 8
         rootElement.style.left = `${ state.x }px`
       } else {
-        state.x = CELL_SIZE * 16 + CELL_SIZE * 2
+        state.x = CELL_SIZE * GAME_SIZE.width + CELL_SIZE * 2
       }
     }
   }

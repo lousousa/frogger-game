@@ -5,7 +5,11 @@
     <main
       class="game-component"
       ref="root"
-      :style="`--cell-size: ${state.cellSize}px`"
+      :style="`
+        --cell-size: ${state.cellSize}px;
+        --game-size-width: ${state.gameSize.width};
+        --game-size-height: ${state.gameSize.height};
+      `"
     >
       <Player
         ref="player"
@@ -35,7 +39,7 @@
 
   import { ref, reactive, onMounted, type VNodeRef } from 'vue'
   import { foeList } from '@/foe-list'
-  import { CELL_SIZE } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE } from '@/constants'
 
   import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
@@ -56,6 +60,7 @@
 
   const state = reactive({
     cellSize: CELL_SIZE,
+    gameSize: GAME_SIZE,
     fps: 60,
     isPaused: false
   })
@@ -79,8 +84,8 @@
   const start = (rootElement: HTMLElement | null):void => {
     if (!rootElement) return
 
-    rootElement.style.width = `${ CELL_SIZE * 16 }px`
-    rootElement.style.height = `${ CELL_SIZE * 25 }px`
+    rootElement.style.width = `${ CELL_SIZE * GAME_SIZE.width }px`
+    rootElement.style.height = `${ CELL_SIZE * GAME_SIZE.height }px`
   }
 
   const update = (player: IPlayer | null, foeRefs: IFoeRef[] | null): void => {

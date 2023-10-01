@@ -8,13 +8,13 @@
 <script setup lang="ts">
   import { ref, reactive } from 'vue'
   import type { Vector2 } from '@/types'
-  import { CELL_SIZE } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE } from '@/constants'
 
   const root = ref()
 
   const state = reactive({
-    x: 8 * CELL_SIZE,
-    y: 24 * CELL_SIZE,
+    x: (GAME_SIZE.width / 2) * CELL_SIZE,
+    y: (GAME_SIZE.height - 1) * CELL_SIZE,
     isPressed: false,
     isDead: false
   })
@@ -28,8 +28,8 @@
     if (dir.x === -1 && state.x === 0) return
     if (dir.y === -1 && state.y === 0) return
 
-    const rightBoundary = CELL_SIZE * 16 - CELL_SIZE
-    const bottomBoundary = CELL_SIZE * 25 - CELL_SIZE
+    const rightBoundary = CELL_SIZE * GAME_SIZE.width - CELL_SIZE
+    const bottomBoundary = CELL_SIZE * GAME_SIZE.height - CELL_SIZE
 
     if (dir.x === 1 && state.x === rightBoundary) return
     if (dir.y === 1 && state.y === bottomBoundary) return
@@ -44,10 +44,10 @@
   }
 
   const reset = () => {
-    state.x = 8 * CELL_SIZE
-    state.y = 24 * CELL_SIZE
-    root.value.style.left = `${8 * CELL_SIZE}px`
-    root.value.style.top = `${24 * CELL_SIZE}px`
+    state.x = (GAME_SIZE.width / 2) * CELL_SIZE
+    state.y = (GAME_SIZE.height - 1) * CELL_SIZE
+    root.value.style.left = `${(GAME_SIZE.width / 2) * CELL_SIZE}px`
+    root.value.style.top = `${(GAME_SIZE.height - 1) * CELL_SIZE}px`
     state.isPressed = false
     state.isDead = false
   }
@@ -72,8 +72,8 @@
     border-radius: calc(var(--cell-size) / 4);
     background-color: var(--color-player);
     position: absolute;
-    top: calc(24 * var(--cell-size));
-    left: calc(8 * var(--cell-size));
+    top: calc((var(--game-size-height) - 1) * var(--cell-size));
+    left: calc((var(--game-size-width) / 2) * var(--cell-size));
     z-index: 2;
     width: var(--cell-size);
     height: var(--cell-size);

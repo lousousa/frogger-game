@@ -8,12 +8,13 @@
 <script setup lang="ts">
   import { ref, reactive } from 'vue'
   import type { Vector2 } from '@/types'
+  import { CELL_SIZE, GAME_SIZE } from '@/constants'
 
   const root = ref()
 
   const state = reactive({
-    x: 8 * 32,
-    y: 24 * 32,
+    x: (GAME_SIZE.width / 2) * CELL_SIZE,
+    y: (GAME_SIZE.height - 1) * CELL_SIZE,
     isPressed: false,
     isDead: false
   })
@@ -27,14 +28,14 @@
     if (dir.x === -1 && state.x === 0) return
     if (dir.y === -1 && state.y === 0) return
 
-    const rightBoundary = 32 * 16 - 32
-    const bottomBoundary = 32 * 25 - 32
+    const rightBoundary = CELL_SIZE * GAME_SIZE.width - CELL_SIZE
+    const bottomBoundary = CELL_SIZE * GAME_SIZE.height - CELL_SIZE
 
     if (dir.x === 1 && state.x === rightBoundary) return
     if (dir.y === 1 && state.y === bottomBoundary) return
 
-    state.x = state.x + 32 * dir.x
-    state.y = state.y + 32 * dir.y
+    state.x = state.x + CELL_SIZE * dir.x
+    state.y = state.y + CELL_SIZE * dir.y
 
     rootElement.style.left = `${state.x}px`
     rootElement.style.top = `${state.y}px`
@@ -43,10 +44,10 @@
   }
 
   const reset = () => {
-    state.x = 8 * 32
-    state.y = 24 * 32
-    root.value.style.left = `${8 * 32}px`
-    root.value.style.top = `${24 * 32}px`
+    state.x = (GAME_SIZE.width / 2) * CELL_SIZE
+    state.y = (GAME_SIZE.height - 1) * CELL_SIZE
+    root.value.style.left = `${(GAME_SIZE.width / 2) * CELL_SIZE}px`
+    root.value.style.top = `${(GAME_SIZE.height - 1) * CELL_SIZE}px`
     state.isPressed = false
     state.isDead = false
   }
@@ -68,14 +69,14 @@
 
 <style lang="scss" scoped>
   .player {
-    border-radius: 8px;
+    border-radius: calc(var(--cell-size) / 4);
     background-color: var(--color-player);
     position: absolute;
-    top: calc(24 * 32px);
-    left: calc(8 * 32px);
+    top: calc((var(--game-size-height) - 1) * var(--cell-size));
+    left: calc((var(--game-size-width) / 2) * var(--cell-size));
     z-index: 2;
-    width: 32px;
-    height: 32px;
+    width: var(--cell-size);
+    height: var(--cell-size);
 
     &.-is-dead {
       background-color: var(--color-player-dead);

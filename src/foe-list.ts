@@ -1,41 +1,43 @@
+import { CELL_SIZE } from '@/constants'
+
 export const foeList = [
-  { x: 64, y: 64, dir: 'right' },
-  { x: 288, y: 64, dir: 'right' },
-  { x: 512, y: 64, dir: 'right' },
+  { x: CELL_SIZE * 2, y: CELL_SIZE * 2, dir: 'right' },
+  { x: CELL_SIZE * 9, y: CELL_SIZE * 2, dir: 'right' },
+  { x: CELL_SIZE * 16, y: CELL_SIZE * 2, dir: 'right' },
 
-  { x: 0, y: 128, dir: 'left' },
-  { x: 192, y: 128, dir: 'left' },
-  { x: 320, y: 128, dir: 'left' },
-  { x: 416, y: 128, dir: 'left' },
+  { x: 0, y: CELL_SIZE * 4, dir: 'left' },
+  { x: CELL_SIZE * 6, y: CELL_SIZE * 4, dir: 'left' },
+  { x: CELL_SIZE * 10, y: CELL_SIZE * 4, dir: 'left' },
+  { x: CELL_SIZE * 13, y: CELL_SIZE * 4, dir: 'left' },
 
-  { x: 128, y: 192, dir: 'right' },
-  { x: 384, y: 192, dir: 'right' },
-  { x: 512, y: 192, dir: 'right' },
+  { x: CELL_SIZE * 4, y: CELL_SIZE * 6, dir: 'right' },
+  { x: CELL_SIZE * 12, y: CELL_SIZE * 6, dir: 'right' },
+  { x: CELL_SIZE * 16, y: CELL_SIZE * 6, dir: 'right' },
 
-  { x: 64, y: 320, dir: 'left' },
-  { x: 192, y: 320, dir: 'left' },
-  { x: 384, y: 320, dir: 'left' },
-  { x: 544, y: 320, dir: 'left' },
+  { x: CELL_SIZE * 2, y: CELL_SIZE * 10, dir: 'left' },
+  { x: CELL_SIZE * 6, y: CELL_SIZE * 10, dir: 'left' },
+  { x: CELL_SIZE * 12, y: CELL_SIZE * 10, dir: 'left' },
+  { x: CELL_SIZE * 17, y: CELL_SIZE * 10, dir: 'left' },
 
-  { x: 0, y: 384, dir: 'right' },
-  { x: 224, y: 384, dir: 'right' },
-  { x: 416, y: 384, dir: 'right' },
+  { x: 0, y: CELL_SIZE * 12, dir: 'right' },
+  { x: CELL_SIZE * 7, y: CELL_SIZE * 12, dir: 'right' },
+  { x: CELL_SIZE * 13, y: CELL_SIZE * 12, dir: 'right' },
 
-  { x: 0, y: 448, dir: 'left' },
-  { x: 192, y: 448, dir: 'left' },
-  { x: 320, y: 448, dir: 'left' },
-  { x: 480, y: 448, dir: 'left' },
+  { x: 0, y: CELL_SIZE * 14, dir: 'left' },
+  { x: CELL_SIZE * 6, y: CELL_SIZE * 14, dir: 'left' },
+  { x: CELL_SIZE * 10, y: CELL_SIZE * 14, dir: 'left' },
+  { x: CELL_SIZE * 15, y: CELL_SIZE * 14, dir: 'left' },
 
-  { x: 0, y: 576, dir: 'right' },
-  { x: 416, y: 576, dir: 'right' },
-  { x: 288, y: 576, dir: 'right' },
+  { x: 0, y: CELL_SIZE * 18, dir: 'right' },
+  { x: CELL_SIZE * 13, y: CELL_SIZE * 18, dir: 'right' },
+  { x: CELL_SIZE * 9, y: CELL_SIZE * 18, dir: 'right' },
 
-  { x: 64, y: 640, dir: 'left' },
-  { x: 224, y: 640, dir: 'left' },
-  { x: 384, y: 640, dir: 'left' },
+  { x: CELL_SIZE * 2, y: CELL_SIZE * 20, dir: 'left' },
+  { x: CELL_SIZE * 7, y: CELL_SIZE * 20, dir: 'left' },
+  { x: CELL_SIZE * 12, y: CELL_SIZE * 20, dir: 'left' },
 
-  { x: 32, y: 704, dir: 'right' },
-  { x: 192, y: 704, dir: 'right' },
-  { x: 288, y: 704, dir: 'right' },
-  { x: 416, y: 704, dir: 'right' }
+  { x: CELL_SIZE * 1, y: CELL_SIZE * 22, dir: 'right' },
+  { x: CELL_SIZE * 6, y: CELL_SIZE * 22, dir: 'right' },
+  { x: CELL_SIZE * 9, y: CELL_SIZE * 22, dir: 'right' },
+  { x: CELL_SIZE * 13, y: CELL_SIZE * 22, dir: 'right' }
 ]

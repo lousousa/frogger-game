@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
   import type { Vector2 } from '@/types';
+  import { CELL_SIZE } from '@/constants'
 
   const props = defineProps({
     positionY: {
@@ -20,7 +21,7 @@
   })
 
   const checkPlayerCollision = (playerPosition: Vector2) => {
-    const distanceY = (props.positionY * 32) - playerPosition.y
+    const distanceY = (props.positionY * CELL_SIZE) - playerPosition.y
 
     if (distanceY === 0) {
       emit('player-collision')
@@ -36,7 +37,7 @@
   .checkpoint {
     background-color: var(--color-checkpoint);
     width: 100%;
-    height: 32px;
+    height: var(--cell-size);
     position: absolute;
     top: var(--positionY);
     left: 0;

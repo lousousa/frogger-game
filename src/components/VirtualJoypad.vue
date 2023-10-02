@@ -4,8 +4,7 @@
   >
     <div
       class="button"
-      @click="onButtonPress"
-      data-direction="up"
+      @click="onButtonPress('up')"
     >
       <ArrowUp
         class="arrow-up"
@@ -17,8 +16,7 @@
     >
       <div
         class="button"
-        @click="onButtonPress"
-        data-direction="left"
+        @click="onButtonPress('left')"
       >
         <ArrowLeft
           class="arrow-left"
@@ -27,8 +25,7 @@
 
       <div
         class="button"
-        @click="onButtonPress"
-        data-direction="right"
+        @click="onButtonPress('right')"
       >
         <ArrowRight
           class="arrow-right"
@@ -38,8 +35,7 @@
 
     <div
       class="button"
-      @click="onButtonPress"
-      data-direction="down"
+      @click="onButtonPress('down')"
     >
       <ArrowDown
         class="arrow-down"
@@ -60,8 +56,8 @@
     'button-press': direction => direction
   })
 
-  const onButtonPress = (ev: any) => {
-    emit('button-press', ev.target.dataset.direction)
+  const onButtonPress = (direction: string) => {
+    emit('button-press', direction)
   }
 </script>
 

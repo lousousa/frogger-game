@@ -2,7 +2,9 @@
   <div
     class="page-wrapper"
   >
-    <div>
+    <div
+      class="content-wrapper"
+    >
       <main
         class="game-component"
         ref="root"
@@ -29,39 +31,11 @@
           ref="checkpoint"
           @player-collision="onCheckpointCollision"
         />
+
+        <VirtualJoypad
+          @button-press="onVirtualButtonPress"
+        />
       </main>
-
-      <div
-        class="virtual-keyboard"
-      >
-        <div
-          class="button"
-          @click="onButtonPress"
-          data-direction="up"
-        />
-
-        <div
-          class="buttons-group"
-        >
-          <div
-            class="button"
-            @click="onButtonPress"
-            data-direction="left"
-          />
-
-          <div
-            class="button"
-            @click="onButtonPress"
-            data-direction="right"
-          />
-        </div>
-
-        <div
-          class="button"
-          @click="onButtonPress"
-          data-direction="down"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -70,6 +44,7 @@
   import Player from '@/components/Player.vue'
   import PrimaryFoe from '@/components/PrimaryFoe.vue'
   import Checkpoint from '@/components/Checkpoint.vue'
+  import VirtualJoypad from '@/components/VirtualJoypad.vue'
 
   import { ref, reactive, onMounted, type VNodeRef } from 'vue'
   import { foeList } from '@/foe-list'
@@ -178,8 +153,8 @@
     }, 150)
   }
 
-  const onButtonPress = (ev: any) => {
-    keys[ev.target.dataset.direction] = true
+  const onVirtualButtonPress = (direction: string) => {
+    keys[direction] = true
     player.value.setPressed(false)
   }
 
@@ -216,6 +191,10 @@
     background-color: var(--color-page);
   }
 
+  .content-wrapper {
+    position: relative;
+  }
+
   .game-component {
     background: linear-gradient(
       var(--color-background-1) 33.33%,
@@ -225,27 +204,5 @@
     position: relative;
     overflow: hidden;
     border-radius: 4px;
-  }
-
-  .virtual-keyboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-
-    .buttons-group {
-      display: flex;
-      gap: calc(40px);
-    }
-
-    .button {
-      background-color: #edede9;
-      opacity: .25;
-      padding: 6px 12px;
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      border-radius: 20px;
-    }
   }
 </style>

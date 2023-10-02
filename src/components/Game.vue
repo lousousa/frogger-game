@@ -2,33 +2,67 @@
   <div
     class="page-wrapper"
   >
-    <main
-      class="game-component"
-      ref="root"
-      :style="`
-        --cell-size: ${state.cellSize}px;
-        --game-size-width: ${state.gameSize.width};
-        --game-size-height: ${state.gameSize.height};
-      `"
-    >
-      <Player
-        ref="player"
-      />
+    <div>
+      <main
+        class="game-component"
+        ref="root"
+        :style="`
+          --cell-size: ${state.cellSize}px;
+          --game-size-width: ${state.gameSize.width};
+          --game-size-height: ${state.gameSize.height};
+        `"
+      >
+        <Player
+          ref="player"
+        />
 
-      <PrimaryFoe
-        v-for="(foe, idx) in foeList"
-        :key="`foe_${idx}`"
-        :spawn-position="{ x: foe.x, y: foe.y }"
-        :direction="foe.dir"
-        :ref="setFoeRef"
-        @player-collision="onFoeCollision"
-      />
+        <PrimaryFoe
+          v-for="(foe, idx) in foeList"
+          :key="`foe_${idx}`"
+          :spawn-position="{ x: foe.x, y: foe.y }"
+          :direction="foe.dir"
+          :ref="setFoeRef"
+          @player-collision="onFoeCollision"
+        />
 
-      <Checkpoint
-        ref="checkpoint"
-        @player-collision="onCheckpointCollision"
-      />
-    </main>
+        <Checkpoint
+          ref="checkpoint"
+          @player-collision="onCheckpointCollision"
+        />
+      </main>
+
+      <div
+        class="virtual-keyboard"
+      >
+        <div
+          class="button"
+          @click="onButtonPress"
+          data-direction="up"
+        />
+
+        <div
+          class="buttons-group"
+        >
+          <div
+            class="button"
+            @click="onButtonPress"
+            data-direction="left"
+          />
+
+          <div
+            class="button"
+            @click="onButtonPress"
+            data-direction="right"
+          />
+        </div>
+
+        <div
+          class="button"
+          @click="onButtonPress"
+          data-direction="down"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -88,6 +122,11 @@
     rootElement.style.height = `${ CELL_SIZE * GAME_SIZE.height }px`
   }
 
+  const clearKeys = () => {
+    const checkingKeys = ['up', 'right', 'down', 'left']
+    checkingKeys.forEach(key => { keys[key] = false })
+  }
+
   const update = (player: IPlayer | null, foeRefs: IFoeRef[] | null): void => {
     if (!player || state.isPaused) return
 
@@ -107,11 +146,13 @@
     })
 
     checkpoint.value.checkPlayerCollision(player.getPosition())
+    clearKeys()
   }
 
   const onFoeCollision = () => {
     state.isPaused = true
     player.value.setDead(true)
+    clearKeys()
 
     window.setTimeout(() => {
       player.value.reset()
@@ -127,8 +168,7 @@
       const confirmation = confirm('You\'ve won! Play it again?')
 
       if (confirmation) {
-        const checkingKeys = ['up', 'right', 'down', 'left']
-        checkingKeys.forEach(key => { keys[key] = false })
+        clearKeys()
 
         player.value.reset()
         foeRefs?.forEach(foe => foe.component.reset())
@@ -136,6 +176,11 @@
         state.isPaused = false
       }
     }, 150)
+  }
+
+  const onButtonPress = (ev: any) => {
+    keys[ev.target.dataset.direction] = true
+    player.value.setPressed(false)
   }
 
   onMounted(() => {
@@ -180,5 +225,27 @@
     position: relative;
     overflow: hidden;
     border-radius: 4px;
+  }
+
+  .virtual-keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+    .buttons-group {
+      display: flex;
+      gap: calc(40px);
+    }
+
+    .button {
+      background-color: #edede9;
+      opacity: .25;
+      padding: 6px 12px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      border-radius: 20px;
+    }
   }
 </style>

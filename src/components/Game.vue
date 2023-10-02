@@ -33,6 +33,7 @@
         />
 
         <VirtualJoypad
+          v-if="state.isScreenSmall"
           @button-press="onVirtualButtonPress"
         />
       </main>
@@ -46,9 +47,9 @@
   import Checkpoint from '@/components/Checkpoint.vue'
   import VirtualJoypad from '@/components/VirtualJoypad.vue'
 
-  import { ref, reactive, onMounted, type VNodeRef } from 'vue'
+  import { ref, reactive, onMounted } from 'vue'
   import { foeList } from '@/foe-list'
-  import { CELL_SIZE, GAME_SIZE } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE, IS_SCREEN_SMALL } from '@/constants'
 
   import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
@@ -70,6 +71,7 @@
   const state = reactive({
     cellSize: CELL_SIZE,
     gameSize: GAME_SIZE,
+    isScreenSmall: IS_SCREEN_SMALL,
     fps: 60,
     isPaused: false
   })
@@ -127,12 +129,12 @@
   const onFoeCollision = () => {
     state.isPaused = true
     player.value.setDead(true)
-    clearKeys()
 
     window.setTimeout(() => {
       player.value.reset()
       foeRefs?.forEach(foe => foe.component.reset())
       state.isPaused = false
+      clearKeys()
     }, 750)
   }
 

@@ -1,4 +1,5 @@
-export const CELL_SIZE = 32
+export const IS_SCREEN_SMALL = document.body.clientWidth <= 640
+export const CELL_SIZE = IS_SCREEN_SMALL ? 20 : 24
 export const GAME_SIZE = {
   width: 16,
   height: 25

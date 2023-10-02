@@ -2,33 +2,42 @@
   <div
     class="page-wrapper"
   >
-    <main
-      class="game-component"
-      ref="root"
-      :style="`
-        --cell-size: ${state.cellSize}px;
-        --game-size-width: ${state.gameSize.width};
-        --game-size-height: ${state.gameSize.height};
-      `"
+    <div
+      class="content-wrapper"
     >
-      <Player
-        ref="player"
-      />
+      <main
+        class="game-component"
+        ref="root"
+        :style="`
+          --cell-size: ${state.cellSize}px;
+          --game-size-width: ${state.gameSize.width};
+          --game-size-height: ${state.gameSize.height};
+        `"
+      >
+        <Player
+          ref="player"
+        />
 
-      <PrimaryFoe
-        v-for="(foe, idx) in foeList"
-        :key="`foe_${idx}`"
-        :spawn-position="{ x: foe.x, y: foe.y }"
-        :direction="foe.dir"
-        :ref="setFoeRef"
-        @player-collision="onFoeCollision"
-      />
+        <PrimaryFoe
+          v-for="(foe, idx) in foeList"
+          :key="`foe_${idx}`"
+          :spawn-position="{ x: foe.x, y: foe.y }"
+          :direction="foe.dir"
+          :ref="setFoeRef"
+          @player-collision="onFoeCollision"
+        />
 
-      <Checkpoint
-        ref="checkpoint"
-        @player-collision="onCheckpointCollision"
-      />
-    </main>
+        <Checkpoint
+          ref="checkpoint"
+          @player-collision="onCheckpointCollision"
+        />
+
+        <VirtualJoypad
+          v-if="state.isScreenSmall"
+          @button-press="onVirtualButtonPress"
+        />
+      </main>
+    </div>
   </div>
 </template>
 
@@ -36,10 +45,11 @@
   import Player from '@/components/Player.vue'
   import PrimaryFoe from '@/components/PrimaryFoe.vue'
   import Checkpoint from '@/components/Checkpoint.vue'
+  import VirtualJoypad from '@/components/VirtualJoypad.vue'
 
-  import { ref, reactive, onMounted, type VNodeRef } from 'vue'
+  import { ref, reactive, onMounted } from 'vue'
   import { foeList } from '@/foe-list'
-  import { CELL_SIZE, GAME_SIZE } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE, IS_SCREEN_SMALL } from '@/constants'
 
   import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
@@ -61,6 +71,7 @@
   const state = reactive({
     cellSize: CELL_SIZE,
     gameSize: GAME_SIZE,
+    isScreenSmall: IS_SCREEN_SMALL,
     fps: 60,
     isPaused: false
   })
@@ -88,6 +99,11 @@
     rootElement.style.height = `${ CELL_SIZE * GAME_SIZE.height }px`
   }
 
+  const clearKeys = () => {
+    const checkingKeys = ['up', 'right', 'down', 'left']
+    checkingKeys.forEach(key => { keys[key] = false })
+  }
+
   const update = (player: IPlayer | null, foeRefs: IFoeRef[] | null): void => {
     if (!player || state.isPaused) return
 
@@ -107,6 +123,7 @@
     })
 
     checkpoint.value.checkPlayerCollision(player.getPosition())
+    clearKeys()
   }
 
   const onFoeCollision = () => {
@@ -117,6 +134,7 @@
       player.value.reset()
       foeRefs?.forEach(foe => foe.component.reset())
       state.isPaused = false
+      clearKeys()
     }, 750)
   }
 
@@ -127,8 +145,7 @@
       const confirmation = confirm('You\'ve won! Play it again?')
 
       if (confirmation) {
-        const checkingKeys = ['up', 'right', 'down', 'left']
-        checkingKeys.forEach(key => { keys[key] = false })
+        clearKeys()
 
         player.value.reset()
         foeRefs?.forEach(foe => foe.component.reset())
@@ -136,6 +153,11 @@
         state.isPaused = false
       }
     }, 150)
+  }
+
+  const onVirtualButtonPress = (direction: string) => {
+    keys[direction] = true
+    player.value.setPressed(false)
   }
 
   onMounted(() => {
@@ -169,6 +191,10 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-page);
+  }
+
+  .content-wrapper {
+    position: relative;
   }
 
   .game-component {

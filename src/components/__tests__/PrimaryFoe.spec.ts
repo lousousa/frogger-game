@@ -32,4 +32,13 @@ describe('PrimaryFoe', () => {
     wrapper.vm.checkPlayerCollision(wrapper.vm.state)
     expect(wrapper.emitted()['player-collision']).toBeTruthy()
   })
+
+  it('gets moved to spawn position on reset', () => {
+    wrapper.vm.state.x = 0
+    wrapper.vm.state.y = 0
+
+    expect(wrapper.vm.state).not.toEqual(wrapper.vm.spawnPosition)
+    wrapper.vm.reset()
+    expect(wrapper.vm.state).toEqual(wrapper.vm.spawnPosition)
+  })
 })

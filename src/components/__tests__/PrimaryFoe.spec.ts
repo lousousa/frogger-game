@@ -2,13 +2,15 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { VueWrapper, shallowMount } from '@vue/test-utils'
 import PrimaryFoe from '@/components/PrimaryFoe.vue'
 
+import { foeList } from '@/foe-list'
+
 let wrapper: VueWrapper<any>
 
 beforeEach(() => {
   wrapper = shallowMount(PrimaryFoe, {
     propsData: {
-      spawnPosition: { x: 0, y: 0 },
-      direction: 'left'
+      spawnPosition: { x: foeList[0].x, y: foeList[0].y },
+      direction: foeList[0].dir
     }
   })
 })
@@ -20,5 +22,14 @@ afterEach(() => {
 describe('PrimaryFoe', () => {
   it('renders properly', () => {
     expect(wrapper.vm).toBeTruthy()
+  })
+
+  it('sets state position as spawn position on component mounting', () => {
+    expect(wrapper.vm.state).toEqual(wrapper.vm.spawnPosition)
+  })
+
+  it('emits player collision when it has a close player position', () => {
+    wrapper.vm.checkPlayerCollision(wrapper.vm.state)
+    expect(wrapper.emitted()['player-collision']).toBeTruthy()
   })
 })

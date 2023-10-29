@@ -62,7 +62,7 @@ describe('Game', () => {
     const spySetDead = vi.spyOn(player, 'setDead')
 
     expect(spySetDead).not.toHaveBeenCalled()
-    foe.component.checkPlayerCollision({ x: foeList[0].x, y: foeList[0].y })
+    foe.component.checkPlayerCollision(foeList[0])
     expect(spySetDead).toHaveBeenCalled()
   })
 })

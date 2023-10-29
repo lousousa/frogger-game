@@ -57,6 +57,12 @@
   const player = ref()
   const checkpoint = ref()
 
+  const foeRefs: IFoeRef[] = []
+
+  const setFoeRef: any = (component: IFoe) => {
+    foeRefs.push({ component, frameCounter: 0 })
+  }
+
   type KeysType = {
     [key: string]: boolean
   }
@@ -169,17 +175,6 @@
         foeRefs
       )
     }, 1000 / state.fps)
-  })
-
-  const foeRefs: IFoeRef[] = []
-
-  const setFoeRef: any = (component: IFoe) => {
-    foeRefs.push({ component, frameCounter: 0 })
-  }
-
-  defineExpose({
-    foeList,
-    setFoeRef
   })
 </script>
 

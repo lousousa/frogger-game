@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { VueWrapper, shallowMount } from '@vue/test-utils'
 import Player from '@/components/Player.vue'
+import { CELL_SIZE } from '@/constants'
 
 let wrapper: VueWrapper<any>
 
@@ -18,43 +19,45 @@ describe('Player', () => {
   })
 
   it('moves up when the direction is applied', () => {
-    wrapper.vm.state.x = 32
-    wrapper.vm.state.y = 32
+    const initialX = wrapper.vm.state.x
+    const initialY = wrapper.vm.state.y
 
     wrapper.vm.move({ x: 0, y: -1 })
 
-    expect(wrapper.vm.state.x).toEqual(32)
-    expect(wrapper.vm.state.y).toEqual(0)
+    expect(wrapper.vm.state.x).toEqual(initialX)
+    expect(wrapper.vm.state.y).toEqual(initialY - CELL_SIZE)
   })
 
   it('moves right when the direction is applied', () => {
-    wrapper.vm.state.x = 0
-    wrapper.vm.state.y = 0
+    const initialX = wrapper.vm.state.x
+    const initialY = wrapper.vm.state.y
 
     wrapper.vm.move({ x: 1, y: 0 })
 
-    expect(wrapper.vm.state.x).toEqual(32)
-    expect(wrapper.vm.state.y).toEqual(0)
+    expect(wrapper.vm.state.x).toEqual(initialX + CELL_SIZE)
+    expect(wrapper.vm.state.y).toEqual(initialY)
   })
 
-  it('moves down when the direction is applied', () => {
-    wrapper.vm.state.x = 0
-    wrapper.vm.state.y = 0
+  it('moves down when the direction is applied',  () => {
+    wrapper.vm.state.y = wrapper.vm.state.y - CELL_SIZE
+
+    const initialX = wrapper.vm.state.x
+    const initialY = wrapper.vm.state.y
 
     wrapper.vm.move({ x: 0, y: 1 })
 
-    expect(wrapper.vm.state.x).toEqual(0)
-    expect(wrapper.vm.state.y).toEqual(32)
+    expect(wrapper.vm.state.x).toEqual(initialX)
+    expect(wrapper.vm.state.y).toEqual(initialY + CELL_SIZE)
   })
 
   it('moves left when the direction is applied', () => {
-    wrapper.vm.state.x = 32
-    wrapper.vm.state.y = 32
+    const initialX = wrapper.vm.state.x
+    const initialY = wrapper.vm.state.y
 
     wrapper.vm.move({ x: -1, y: 0 })
 
-    expect(wrapper.vm.state.x).toEqual(0)
-    expect(wrapper.vm.state.y).toEqual(32)
+    expect(wrapper.vm.state.x).toEqual(initialX - CELL_SIZE)
+    expect(wrapper.vm.state.y).toEqual(initialY)
   })
 
   it('restore all state values on reset', () => {

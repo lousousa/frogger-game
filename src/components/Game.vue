@@ -31,13 +31,13 @@
           ref="checkpoint"
           @player-collision="onCheckpointCollision"
         />
-
-        <VirtualJoypad
-          v-if="state.isScreenSmall"
-          @button-press="onVirtualButtonPress"
-        />
       </main>
     </div>
+
+    <VirtualJoypad
+      v-if="state.isScreenSmall"
+      @button-press="onVirtualButtonPress"
+    />
   </div>
 </template>
 
@@ -185,11 +185,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     background-color: var(--color-page);
   }
 
   .content-wrapper {
     position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .game-component {

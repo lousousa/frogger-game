@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { VueWrapper, shallowMount } from '@vue/test-utils'
 import Player from '@/components/Player.vue'
+
 import { CELL_SIZE } from '@/constants'
 
 let wrapper: VueWrapper<any>

@@ -24,7 +24,7 @@ describe('Checkpoint', () => {
     expect(wrapper.emitted()['player-collision']).toBeTruthy()
   })
 
-  it('adds dynamically an y position to component\'s template', () => {
+  it('adds dynamically a y position to component\'s template', () => {
     expect(
       (wrapper.element as HTMLElement).style.getPropertyValue('--positionY')
     ).toEqual(`calc(${wrapper.vm.positionY} * ${CELL_SIZE}px)`)

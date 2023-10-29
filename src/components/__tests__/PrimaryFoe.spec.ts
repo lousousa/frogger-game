@@ -41,4 +41,14 @@ describe('PrimaryFoe', () => {
     wrapper.vm.reset()
     expect(wrapper.vm.state).toEqual(wrapper.vm.spawnPosition)
   })
+
+  it('adds dynamically the spawn position to component\'s template', () => {
+    expect(
+      (wrapper.element as HTMLElement).style.getPropertyValue('--spawnPositionX')
+    ).toEqual(`${wrapper.vm.spawnPosition.x}px`)
+
+    expect(
+      (wrapper.element as HTMLElement).style.getPropertyValue('--spawnPositionY')
+    ).toEqual(`${wrapper.vm.spawnPosition.y}px`)
+  })
 })

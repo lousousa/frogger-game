@@ -68,7 +68,7 @@
 
 <style lang="scss" scoped>
   .virtual-keyboard {
-    --button-size: 56px;
+    --button-size: 64px;
 
     display: flex;
     flex-direction: column;
@@ -95,21 +95,21 @@
       }
 
       .arrow-up {
-        margin-top: 8px;
+        margin-top: 13px;
       }
 
       .arrow-right {
-        margin-top: 10px;
-        margin-left: 6px;
+        margin-top: 15px;
+        margin-left: 4px;
       }
 
       .arrow-down {
-        margin-top: 12px;
+        margin-top: 16px;
       }
 
       .arrow-left {
-        margin-top: 10px;
-        margin-right: 6px;
+        margin-top: 15px;
+        margin-right: 4px;
       }
     }
   }

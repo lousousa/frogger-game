@@ -68,9 +68,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 16px;
-    left: calc(50% - var(--button-size) - var(--button-size) / 2);
-    position: absolute;
 
     .buttons-group {
       display: flex;

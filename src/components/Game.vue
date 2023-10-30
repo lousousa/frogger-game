@@ -31,13 +31,13 @@
           ref="checkpoint"
           @player-collision="onCheckpointCollision"
         />
-
-        <VirtualJoypad
-          v-if="state.isScreenSmall"
-          @button-press="onVirtualButtonPress"
-        />
       </main>
     </div>
+
+    <VirtualJoypad
+      v-if="state.isSmallScreen"
+      @button-press="onVirtualButtonPress"
+    />
   </div>
 </template>
 
@@ -49,13 +49,19 @@
 
   import { ref, reactive, onMounted } from 'vue'
   import { foeList } from '@/foe-list'
-  import { CELL_SIZE, GAME_SIZE, IS_SCREEN_SMALL } from '@/constants'
+  import { CELL_SIZE, GAME_SIZE, IS_SMALL_SCREEN } from '@/constants'
 
   import type { IPlayer, IFoe, IFoeRef } from '@/types'
 
   const root = ref()
   const player = ref()
   const checkpoint = ref()
+
+  const foeRefs: IFoeRef[] = []
+
+  const setFoeRef: any = (component: IFoe) => {
+    foeRefs.push({ component, frameCounter: 0 })
+  }
 
   type KeysType = {
     [key: string]: boolean
@@ -71,7 +77,7 @@
   const state = reactive({
     cellSize: CELL_SIZE,
     gameSize: GAME_SIZE,
-    isScreenSmall: IS_SCREEN_SMALL,
+    isSmallScreen: IS_SMALL_SCREEN,
     fps: 60,
     isPaused: false
   })
@@ -170,17 +176,6 @@
       )
     }, 1000 / state.fps)
   })
-
-  const foeRefs: IFoeRef[] = []
-
-  const setFoeRef: any = (component: IFoe) => {
-    foeRefs.push({ component, frameCounter: 0 })
-  }
-
-  defineExpose({
-    foeList,
-    setFoeRef
-  })
 </script>
 
 <style lang="scss" scoped>
@@ -190,11 +185,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     background-color: var(--color-page);
   }
 
   .content-wrapper {
     position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .game-component {

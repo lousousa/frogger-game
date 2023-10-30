@@ -1,11 +1,12 @@
 <template>
   <div
     class="checkpoint"
-    :style="`--positionY: calc(${positionY} * 32px);`"
+    :style="`--positionY: calc(${positionY} * ${cellSize}px);`"
   />
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue'
   import type { Vector2 } from '@/types';
   import { CELL_SIZE } from '@/constants'
 
@@ -15,6 +16,8 @@
       default: 0
     }
   })
+
+  const cellSize = ref(CELL_SIZE)
 
   const emit = defineEmits({
     'player-collision': () => true

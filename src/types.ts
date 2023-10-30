@@ -1,17 +1,22 @@
 export interface IPlayer {
-  x: number,
-  y: number,
-  isPressed: boolean,
+  state: {
+    x: number,
+    y: number,
+    isPressed: boolean,
+    idDead: boolean
+  },
   move: (dir: Vector2) => void,
-  setPressed: () => void,
-  setDead: () => void,
+  setPressed: (flag: boolean) => void,
+  setDead: (flag: boolean) => void,
   getPosition: () => Vector2,
   reset: () => void
 }
 
 export interface IFoe {
-  x: number,
-  y: number,
+  state: {
+    x: number,
+    y: number
+  }
   move: () => void,
   checkPlayerCollision: (playerPosition: Vector2) => void,
   reset: () => void

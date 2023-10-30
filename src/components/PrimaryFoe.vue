@@ -26,7 +26,10 @@
     },
     direction: {
       type: String,
-      required: true
+      required: true,
+      validator(value: string) {
+        return ['left', 'right'].includes(value)
+      }
     }
   })
 

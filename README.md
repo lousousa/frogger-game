@@ -1,5 +1,7 @@
 #  Frogger Game
 
+[![vue](https://badges.aleen42.com/src/vue.svg)](https://badges.aleen42.com/src/vue.svg) [![typescript](https://badges.aleen42.com/src/typescript.svg)](https://badges.aleen42.com/src/typescript.svg)
+
 A version of the game "Frogger" developed in Vue 3.
 
 ![frogger](https://github.com/lousousa/frogger-game/assets/2921281/edd9f185-2a96-4a21-a335-8c97200d8d6a)

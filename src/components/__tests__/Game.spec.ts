@@ -7,6 +7,8 @@ import PrimaryFoe from '@/components/PrimaryFoe.vue'
 import VirtualJoypad from '@/components/VirtualJoypad.vue'
 import { foeList } from '@/foe-list'
 
+import { CELL_SIZE, GAME_SIZE } from '@/constants'
+
 let wrapper: VueWrapper<any>
 
 beforeEach(() => {
@@ -39,7 +41,7 @@ describe('Game', () => {
     expect(componentWrapper.vm).toBeTruthy()
   })
 
-  it('renders a virtual joypad component', () => {
+  it('renders a virtual joypad component if its small screen', () => {
     const componentWrapper = wrapper.findComponent(VirtualJoypad)
     expect(componentWrapper.vm).toBeTruthy()
   })
@@ -64,5 +66,43 @@ describe('Game', () => {
     expect(spySetDead).not.toHaveBeenCalled()
     foe.component.checkPlayerCollision(foeList[0])
     expect(spySetDead).toHaveBeenCalled()
+  })
+
+  it('updates keys state on virtual button press', () => {
+    expect(wrapper.vm.keys['up']).toBeFalsy()
+    wrapper.vm.onVirtualButtonPress('up')
+    expect(wrapper.vm.keys['up']).toBeTruthy()
+  })
+
+  it('sets all keys to false on clear keys', () => {
+    const keys: Array<string> = Object.keys(wrapper.vm.keys)
+
+    keys.forEach(key => wrapper.vm.keys[key] = true)
+
+    wrapper.vm.clearKeys()
+
+    keys.forEach(key => expect(wrapper.vm.keys[key]).toBeFalsy())
+  })
+
+  it('sets size values to game root element', () => {
+    expect(
+      (wrapper.vm.root as HTMLElement).style.getPropertyValue('--cell-size')
+    ).toEqual(`${CELL_SIZE}px`)
+
+    expect(
+      (wrapper.vm.root as HTMLElement).style.getPropertyValue('--game-size-width')
+    ).toEqual('' + GAME_SIZE.width)
+
+    expect(
+      (wrapper.vm.root as HTMLElement).style.getPropertyValue('--game-size-height')
+    ).toEqual('' + GAME_SIZE.height)
+
+    expect(
+      (wrapper.vm.root as HTMLElement).style.getPropertyValue('width')
+    ).toEqual(`${CELL_SIZE * GAME_SIZE.width}px`)
+
+    expect(
+      (wrapper.vm.root as HTMLElement).style.getPropertyValue('height')
+    ).toEqual(`${CELL_SIZE * GAME_SIZE.height}px`)
   })
 })

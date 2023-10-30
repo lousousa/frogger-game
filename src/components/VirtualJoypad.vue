@@ -36,6 +36,7 @@
     <div
       class="button"
       @click="onButtonPress('down')"
+      v-if="isDownButtonEnabled"
     >
       <ArrowDown
         class="arrow-down"
@@ -45,12 +46,16 @@
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue'
+
   import {
     ArrowUp,
     ArrowRight,
     ArrowDown,
     ArrowLeft
   } from '@/assets/icons'
+
+  const isDownButtonEnabled = ref(false)
 
   const emit = defineEmits({
     'button-press': direction => direction

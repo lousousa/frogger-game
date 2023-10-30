@@ -17,7 +17,15 @@ describe('VirtualJoypad', () => {
     expect(wrapper.vm).toBeTruthy()
   })
 
-  it('renders four buttons', () => {
+  it('renders three buttons as default', () => {
+    const buttons = wrapper.findAll('.button')
+    expect(buttons.length).toBe(3)
+  })
+
+  it('renders four buttons when down is enabled', async () => {
+    wrapper.vm.isDownButtonEnabled = true
+    await wrapper.vm.$nextTick()
+
     const buttons = wrapper.findAll('.button')
     expect(buttons.length).toBe(4)
   })
@@ -39,7 +47,10 @@ describe('VirtualJoypad', () => {
     expect(action).toEqual('right')
   })
 
-  it('emits button press to bottom', async () => {
+  it('emits button press to down', async () => {
+    wrapper.vm.isDownButtonEnabled = true
+    await wrapper.vm.$nextTick()
+
     const action = await getButtonAction(3)
     expect(action).toEqual('down')
   })
